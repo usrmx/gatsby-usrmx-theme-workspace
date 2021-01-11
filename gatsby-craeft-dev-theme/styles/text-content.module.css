@@ -1,0 +1,18 @@
+.content {
+  font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.3rem;
+
+  padding: 40px 60px calc(40px - 1.5em) 60px;
+}
+
+.light {
+  composes: content;
+  background: var(--theme-light-text-content-bg-color);
+}
+
+.dark {
+  composes: content;
+  background: var(--theme-dark-text-content-bg-color);
+}

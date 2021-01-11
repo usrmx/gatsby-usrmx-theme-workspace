@@ -1,0 +1,16 @@
+.info-card {
+  padding: 36px 36px 12px;
+  margin: 0 auto 24px;
+}
+
+.light {
+  composes: info-card;
+  background-color: var(--theme-light-info-card-color);
+  color: var(--theme-light-second-text-color);
+}
+
+.dark {
+  composes: info-card;
+  background-color: var(--theme-dark-info-card-color);
+  color: var(--theme-dark-second-text-color);
+}

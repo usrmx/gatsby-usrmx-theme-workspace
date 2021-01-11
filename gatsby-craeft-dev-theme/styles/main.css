@@ -1,0 +1,46 @@
+@import "./variables.css";
+@import "./reset.css";
+@import "./base.css";
+@import "./fonts.css";
+
+body {
+  font-family: "Roboto Mono", monospace;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--main-container-md-width);
+  margin: 0 auto;
+}
+
+.site-logo {
+  font-size: 2rem;
+}
+
+.theme-switcher {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* ------------------ Light Theme ------------------ */
+
+body.light-theme {
+  background-color: var(--theme-light-main-bg-color);
+  color: var(--theme-light-second-text-color);
+}
+
+.light-theme .site-logo {
+  color: var(--theme-light-main-text-color);
+}
+
+/* ------------------ Dark Theme ------------------ */
+
+body.dark-theme {
+  background-color: var(--theme-dark-main-bg-color);
+  color: var(--theme-dark-second-text-color);
+}
+
+.dark-theme .site-logo {
+  color: var(--theme-dark-main-text-color);
+}

@@ -1,0 +1,26 @@
+.header {
+  width: 100%;
+}
+
+.light {
+  composes: header;
+  background-color: var(--theme-light-header-bg-color);
+}
+
+.dark {
+  composes: header;
+  background-color: var(--theme-dark-header-bg-color);
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}

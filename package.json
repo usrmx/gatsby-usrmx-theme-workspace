@@ -1,0 +1,13 @@
+{
+  "name": "gatsby-craeft-theme-workspace",
+  "version": "0.0.1",
+  "description": "Gatsby.js theme for craeft.dev",
+  "repository": "https://github.com/w1zm8/gatsby-craeft-theme-workspace",
+  "author": "w1zm8",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "example",
+    "gatsby-craeft-dev-theme"
+  ]
+}

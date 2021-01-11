@@ -1,0 +1,34 @@
+@value borderline: 2px solid;
+
+.active {
+  border-bottom: borderline;
+}
+
+.active-on-hover:hover {
+  border-bottom: borderline;
+}
+
+.nav-link {
+  composes: active-on-hover;
+  margin-right: 15px;
+}
+
+.light {
+  composes: nav-link;
+  color: var(--theme-light-second-text-color);
+}
+
+.dark {
+  composes: nav-link;
+  color: var(--theme-dark-second-text-color);
+}
+
+.light-active {
+  composes: nav-link active;
+  color: var(--theme-light-second-text-color);
+}
+
+.dark-active {
+  composes: nav-link active;
+  color: var(--theme-dark-second-text-color);
+}
