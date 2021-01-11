@@ -1,0 +1,27 @@
+.card {
+  flex: 1 1 400px;
+  padding: 0 15px 15px 15px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.thumbnail {
+  position: relative;
+  height: 200px;
+  display: block;
+  margin: 0 0 0.5em;
+}
+
+.thumbnail-inner {
+  height: 100%;
+}
+
+.info {
+  color: var(--common-post-info-color);
+  font-size: 0.8rem;
+  font-family: "Roboto Mono", monospace;
+}
+
+.info a {
+  color: var(--common-post-info-color);
+}

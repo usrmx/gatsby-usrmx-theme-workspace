@@ -1,0 +1,22 @@
+.title-on-hover:hover {
+  text-decoration: underline;
+}
+
+.title {
+  composes: title-on-hover;
+  margin: 0 0 0.5em;
+  display: inline-block;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  font-family: "Roboto Mono", monospace;
+}
+
+.light {
+  composes: title;
+  color: var(--theme-light-second-text-color);
+}
+
+.dark {
+  composes: title;
+  color: var(--theme-dark-second-text-color);
+}

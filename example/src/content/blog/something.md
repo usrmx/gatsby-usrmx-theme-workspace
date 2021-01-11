@@ -3,6 +3,7 @@ slug: "something"
 date: "09-01-2021"
 title: "Something about"
 excerpt: "my excerpt..."
+image: "../../images/astronomical-clocks.jpg"
 ---
 
 # Something about

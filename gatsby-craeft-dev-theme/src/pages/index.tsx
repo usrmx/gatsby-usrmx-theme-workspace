@@ -49,7 +49,7 @@ const IndexPage = (props: PageProps<DataType>) => {
         <Greeting>
           {data.mdx ? <MDXRenderer>{data.mdx.body}</MDXRenderer> : null}
         </Greeting>
-        <h2>Latest posts</h2>
+        <h2 className="latest-posts">Latest posts</h2>
       </header>
       <PostsList posts={posts} />
     </MainLayout>
@@ -64,7 +64,7 @@ export const query = graphql`
     allMdx(
       limit: 7
       filter: { fileAbsolutePath: { regex: "/content/blog/" } }
-      sort: { fields: frontmatter___date, order: ASC }
+      sort: { fields: frontmatter___date, order: DESC }
     ) {
       edges {
         node {
