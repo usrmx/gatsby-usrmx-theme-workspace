@@ -3,7 +3,7 @@ import React from "react";
 import { PostTags } from "./PostTags";
 import { InfoCard } from "./InfoCard";
 
-import { MAX_TAGS_COUNT } from "../constants";
+import { MAX_TAGS_COUNT, PAGES_ROUTES } from "../constants";
 import { ThemeValue } from "../types";
 
 interface TagsBlockProps {
@@ -22,7 +22,7 @@ export const TagsBlock = ({ tags, theme }: TagsBlockProps) => {
       />
       {tags.length > MAX_TAGS_COUNT.block && (
         <p>
-          <Link className="underline theme-link" to="/tags">
+          <Link className="underline theme-link" to={PAGES_ROUTES.blog.tags}>
             ...more
           </Link>
         </p>

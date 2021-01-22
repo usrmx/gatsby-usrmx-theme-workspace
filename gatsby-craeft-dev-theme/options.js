@@ -25,9 +25,40 @@ const CONTENT_REQUIRED_FILES = {
   },
 };
 
+const TEMPLATES = {
+  postPage: `${__dirname}/src/templates/post-page.tsx`,
+  tagsPage: `${__dirname}/src/templates/tags-page.tsx`,
+  tagPostsPage: `${__dirname}/src/templates/tag-posts-page.tsx`,
+  postsPage: `${__dirname}/src/templates/posts-page.tsx`,
+};
+
+// need to merge it with /src/constants.ts PAGES_ROUTES
+const PAGES_ROUTES = {
+  home: {
+    index: "/",
+  },
+  blog: {
+    index: "/blog",
+    post: "/blog/article",
+    tags: "/blog/tags",
+    pagination: "/blog/page",
+  },
+  about: {
+    index: "/about",
+  },
+  contact: {
+    index: "/contact",
+  },
+};
+
+const POSTS_PER_PAGE = 6;
+
 module.exports = {
   CONTENT_PATHS,
   CONTENT_NAMES,
   CONTENT_REQUIRED_FILES,
   POSTS_SLUG_PREFIX,
+  TEMPLATES,
+  PAGES_ROUTES,
+  POSTS_PER_PAGE,
 };

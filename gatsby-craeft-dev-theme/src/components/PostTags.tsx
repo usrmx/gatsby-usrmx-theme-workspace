@@ -3,6 +3,7 @@ import React from "react";
 import { PostTag } from "./PostTag";
 
 import styles from "../../styles/post-tags.module.css";
+import { PAGES_ROUTES } from "../constants";
 
 interface PostTagsProps {
   tags: string[];
@@ -27,7 +28,7 @@ export const PostTags = ({
     <div className={styles[direction]}>
       {displayedTags.map((tag) => (
         <div className={styles.tag} key={`${id}-${tag}`}>
-          <PostTag to={`/tags/${tag}`} color="orange">
+          <PostTag to={`${PAGES_ROUTES.blog.tags}/${tag}`} color="orange">
             {tag}
           </PostTag>
         </div>

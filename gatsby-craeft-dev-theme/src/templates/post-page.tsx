@@ -9,6 +9,7 @@ import {
   PostTags,
   TextContent,
   SEO,
+  Breadcrumbs,
 } from "../components";
 
 import { useTheme } from "../core";
@@ -45,6 +46,13 @@ const PostPage = ({
         image={frontmatter.image.childImageSharp.fixed.src}
         title={frontmatter.title}
         description={excerpt}
+      />
+      <Breadcrumbs
+        items={[
+          { to: "/", label: "Home" },
+          { to: "/blog", label: "Blog" },
+          { label: frontmatter.title },
+        ]}
       />
       <article>
         <TextContent

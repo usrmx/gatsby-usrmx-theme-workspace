@@ -1,14 +1,12 @@
 .card {
-  /* flex: 1 1 300px; */
   flex: 1 1 calc(33% - 30px);
   margin: 0 15px 30px;
-  /* max-width: 400px; */
-  /* max-width: 304px; */
   width: 100%;
 }
 
 .tile {
   composes: card;
+  max-width: calc(33% - 25px);
 }
 
 .row {
@@ -57,12 +55,14 @@
 @media (max-width: 1360px) {
   .tile {
     flex: 1 1 calc(50% - 30px);
+    max-width: calc(50% - 30px);
   }
 }
 
 @media (max-width: 690px) {
   .tile {
     flex: 1 1 calc(100% - 30px);
+    max-width: calc(100% - 30px);
   }
 
   .row {

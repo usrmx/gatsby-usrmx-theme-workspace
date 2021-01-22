@@ -1,12 +1,10 @@
 import React from "react";
 import { PageProps, graphql, Link } from "gatsby";
-import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import {
   PageGrid,
   MainLayout,
   PostsList,
-  InfoCard,
   TagsBlock,
   SidePanel,
   PostsSection,
@@ -14,8 +12,8 @@ import {
 } from "../components";
 import { PostEdge } from "../types";
 import { useTheme } from "../core";
-import { getMappedPosts, getTagsFromPosts } from "../utils";
-import { MAX_POSTS_COUNT_HOME_PAGE } from "../constants";
+import { getTagsFromPosts } from "../utils";
+import { MAX_POSTS_COUNT_HOME_PAGE, PAGES_ROUTES } from "../constants";
 
 interface DataType {
   allMdx: {
@@ -35,13 +33,16 @@ const IndexPage = ({ data: { allMdx } }: PageProps<DataType>) => {
 
   return (
     <MainLayout>
-      <PostsListHeader title="Latest Posts" theme={theme} />
+      <PostsListHeader title="Latest Articles" theme={theme} />
       <PageGrid>
         <PostsSection>
           <PostsList posts={allMdx.edges} gridView="row" />
           {allMdx.totalCount > MAX_POSTS_COUNT_HOME_PAGE && (
             <h3 className="text-center monospace">
-              <Link to="/blog" className="underline theme-link">
+              <Link
+                to={PAGES_ROUTES.blog.index}
+                className="underline theme-link"
+              >
                 view all
               </Link>
             </h3>

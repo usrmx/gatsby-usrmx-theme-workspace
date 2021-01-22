@@ -1,5 +1,11 @@
 const fs = require("fs");
-const { CONTENT_PATHS, CONTENT_REQUIRED_FILES } = require("./options");
+const {
+  CONTENT_PATHS,
+  CONTENT_REQUIRED_FILES,
+  TEMPLATES,
+  PAGES_ROUTES,
+  POSTS_PER_PAGE,
+} = require("./options");
 
 // replace with "src/utils/getTagsFromPosts.ts"
 const getTagsFromPosts = (posts) =>
@@ -65,11 +71,8 @@ const onPreBootstrap = ({ reporter }) => {
 
 const createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
-  const templates = {
-    postPage: `${__dirname}/src/templates/post-page.tsx`,
-    tagsPage: `${__dirname}/src/templates/tags-page.tsx`,
-    tagPostsPage: `${__dirname}/src/templates/tag-posts-page.tsx`,
-  };
+
+  // ------------ CREATING PAGES OF POSTS IN BLOG ------------
 
   const result = await graphql(`
     query {
@@ -95,31 +98,81 @@ const createPages = async ({ graphql, actions, reporter }) => {
 
   posts.forEach(({ node }) => {
     createPage({
-      path: `/blog/${node.frontmatter.slug}`,
-      component: templates.postPage,
+      path: `${PAGES_ROUTES.blog.post}/${node.frontmatter.slug}`,
+      component: TEMPLATES.postPage,
       context: { id: node.id },
     });
   });
+
+  // ------------ CREATING PAGE OF ALL TAGS ------------
 
   const allTags = getTagsFromPosts(posts);
   const tagPostsCount = getTagsCount(allTags);
   const tags = Array.from(new Set(allTags).values());
 
   createPage({
-    path: "/tags",
-    component: templates.tagsPage,
+    path: PAGES_ROUTES.blog.tags,
+    component: TEMPLATES.tagsPage,
     context: {
       tags,
       tagPostsCount,
     },
   });
 
+  // ------------ CREATING PAGES OF TAGS POSTS ------------
+
   tags.forEach((tag) => {
-    createPage({
-      path: `/tags/${tag}`,
-      component: templates.tagPostsPage,
-      context: {
+    const tagPagesCount = Math.ceil(tagPostsCount[tag] / POSTS_PER_PAGE);
+
+    Array.from({ length: tagPagesCount }).forEach((_, index) => {
+      const isFirstPage = index === 0;
+      const currentPage = index + 1;
+      const component = TEMPLATES.tagPostsPage;
+      const context = {
         tag,
+        limit: POSTS_PER_PAGE,
+        skip: index * POSTS_PER_PAGE,
+        currentPage,
+        pagesCount: tagPagesCount,
+      };
+
+      if (isFirstPage) {
+        createPage({
+          path: `${PAGES_ROUTES.blog.tags}/${tag}`,
+          component,
+          context,
+        });
+        return;
+      }
+
+      createPage({
+        path: `${PAGES_ROUTES.blog.tags}/${tag}/page/${currentPage}`,
+        component,
+        context,
+      });
+    });
+  });
+
+  // ------------ CREATING PAGINATION ------------
+
+  const pagesCount = Math.ceil(posts.length / POSTS_PER_PAGE);
+
+  Array.from({ length: pagesCount }).forEach((_, index) => {
+    const isFirstPage = index === 0;
+    const currentPage = index + 1;
+
+    if (isFirstPage) {
+      return;
+    }
+
+    createPage({
+      path: `${PAGES_ROUTES.blog.pagination}/${currentPage}`,
+      component: TEMPLATES.postsPage,
+      context: {
+        limit: POSTS_PER_PAGE,
+        skip: index * POSTS_PER_PAGE,
+        currentPage,
+        pagesCount,
       },
     });
   });

@@ -5,6 +5,7 @@ import { PageTitle } from "./PageTitle";
 import { SearchField } from "./SearchField";
 
 import styles from "../../styles/posts-list-header.module.css";
+import { Link } from "gatsby";
 
 interface PostsListHeaderProps {
   theme: ThemeValue;
@@ -20,7 +21,16 @@ export const PostsListHeader = ({
   return (
     <header className={styles[theme]} style={style}>
       <PageTitle theme={theme}>{title}</PageTitle>
-      {/* <SearchField /> */}
+      <div
+        style={{
+          textAlign: "right",
+        }}
+      >
+        {/* <Link to="/tags" className="theme-link monospace">
+          All Tags
+        </Link> */}
+        <SearchField />
+      </div>
     </header>
   );
 };

@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    logoTitle: "craeft.dev_",
+    logoTitle: "craeft_",
     title: "craeft.dev 🦉",
     titleTemplate: "%s | craeft.dev 🦉",
     description:

@@ -6,6 +6,7 @@ import { GridViewValue, PostEdge } from "../types";
 import { getMappedPosts } from "../utils";
 
 import styles from "../../styles/posts-list.module.css";
+import { PAGES_ROUTES } from "../constants";
 
 interface PostsListProps {
   posts: PostEdge[];
@@ -21,7 +22,7 @@ export const PostsList = ({ posts: postsEdges, gridView }: PostsListProps) => {
         <PostCard
           key={post.slug}
           {...post}
-          to={`/blog/${post.slug}`}
+          to={`${PAGES_ROUTES.blog.post}/${post.slug}`}
           view={gridView}
         />
       ))}

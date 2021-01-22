@@ -34,7 +34,7 @@ export const SidePanel = ({ children }: SidePanelProps) => {
 
 const query = graphql`
   query SidePanel {
-    mdx(frontmatter: { key: { eq: "short-about" } }) {
+    mdx(frontmatter: { key: { eq: "blurb" } }) {
       body
     }
   }

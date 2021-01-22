@@ -26,11 +26,20 @@ export const Footer = ({
           <section className="copyright">{copyright}</section>
           <Navbar items={navItems} theme={theme} />
           <section>
-            <span>theme made by </span>
-            <a className="underline theme-link" href="https://github.com/w1zm8">
-              @w1zm8
+            theme{" "}
+            <a
+              className="underline theme-link"
+              href="https://github.com/w1zm8/gatsby-craeft-theme-workspace"
+            >
+              craeft
+            </a>{" "}
+            for{" "}
+            <a
+              className="underline theme-link"
+              href="https://www.gatsbyjs.com/"
+            >
+              Gatsby.js
             </a>
-            🦉
           </section>
         </div>
       </Container>

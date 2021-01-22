@@ -20,5 +20,6 @@ export { PostsListHeader } from "./PostsListHeader";
 export { SEO } from "./Seo";
 export { AllTagsList } from "./AllTagsList";
 export { Breadcrumbs } from "./Breadcrumbs";
+export { Pagination } from "./Pagination";
 
 export { default as MainLayout } from "./MainLayout";

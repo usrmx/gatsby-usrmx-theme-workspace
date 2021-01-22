@@ -11,7 +11,7 @@ export const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
   return (
     <nav className={styles.breadcrumbs}>
       {items.map(({ to = "/", label }, index) => (
-        <>
+        <React.Fragment key={`breadcrumb-${index}`}>
           {index === items.length - 1 ? (
             <span>{label}</span>
           ) : (
@@ -22,7 +22,7 @@ export const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
           {index !== items.length - 1 && (
             <span className={styles.splitter}>/</span>
           )}
-        </>
+        </React.Fragment>
       ))}
     </nav>
   );

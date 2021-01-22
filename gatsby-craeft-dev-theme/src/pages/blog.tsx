@@ -8,10 +8,11 @@ import {
   PostsSection,
   PostsListHeader,
   Breadcrumbs,
+  Pagination,
 } from "../components";
 import { PostEdge } from "../types";
 import { useTheme } from "../core";
-import { getMappedPosts, getTagsFromPosts } from "../utils";
+import { PAGES_ROUTES, POSTS_PER_PAGE } from "../constants";
 
 interface DataType {
   mdx: {
@@ -23,32 +24,27 @@ interface DataType {
   };
 }
 
-const BlogPage = ({ data: { allMdx, mdx } }: PageProps<DataType>) => {
+const BlogPage = ({ data: { allMdx } }: PageProps<DataType>) => {
   const { theme } = useTheme();
-
-  const tags = getTagsFromPosts(allMdx.edges);
+  const pagesCount = Math.ceil(allMdx.totalCount / POSTS_PER_PAGE);
 
   return (
     <MainLayout title="Blog">
       <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Blog" }]} />
-      <PostsListHeader
-        title="Blog"
-        theme={theme}
-        style={{
-          width: "100%",
-        }}
-      />
+      <PostsListHeader title="Blog" theme={theme} />
       <PageGrid>
-        <PostsSection style={{ width: "100%" }}>
+        <PostsSection>
           <PostsList posts={allMdx.edges} gridView="tile" />
         </PostsSection>
-        {/* <SidePanel>
-          <InfoCard theme={theme}>
-            {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
-          </InfoCard>
-          <TagsBlock theme={theme} tags={tags} />
-        </SidePanel> */}
       </PageGrid>
+      {pagesCount > 1 && (
+        <Pagination
+          routePath={PAGES_ROUTES.blog.index}
+          theme={theme}
+          currentPage={1}
+          pagesCount={pagesCount}
+        />
+      )}
     </MainLayout>
   );
 };

@@ -1,4 +1,4 @@
-import { Link, PageProps } from "gatsby";
+import { PageProps } from "gatsby";
 import React from "react";
 
 import {
@@ -19,7 +19,7 @@ interface PageContextType {
 }
 
 export const TagsPage = ({
-  pageContext: { tags, tagPostsCount },
+  pageContext: { tagPostsCount },
 }: PageProps<{}, PageContextType>) => {
   const { theme } = useTheme();
 
