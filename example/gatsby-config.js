@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
     logoTitle: "craeft_",
@@ -38,5 +42,12 @@ module.exports = {
     },
     "gatsby-plugin-ts-config",
     "gatsby-craeft-dev-theme",
+    {
+      resolve: "gatsby-plugin-mailchimp",
+      options: {
+        endpoint: process.env.MAILCHIMP_ENDPOINT,
+        timeout: 3500,
+      },
+    },
   ],
 };

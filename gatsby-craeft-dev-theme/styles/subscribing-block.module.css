@@ -65,6 +65,10 @@
   flex-wrap: wrap;
 }
 
+.result {
+  font-size: 1.6rem !important;
+}
+
 @media (max-width: 570px) {
   .subscribe-btn {
     margin-left: 0;

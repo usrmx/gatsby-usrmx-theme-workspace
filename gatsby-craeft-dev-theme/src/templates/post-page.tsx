@@ -64,9 +64,6 @@ const PostPage = ({
 }: PageProps<DataType, PageContextType>) => {
   const { theme } = useTheme();
 
-  console.log(nextPost);
-  console.log(prevPost);
-
   return (
     <MainLayout>
       <SEO

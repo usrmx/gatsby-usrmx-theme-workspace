@@ -1,5 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { graphql, useStaticQuery } from "gatsby";
+import addToMailchimp from "gatsby-plugin-mailchimp";
 
 import { useTheme } from "../core";
 
@@ -13,9 +14,26 @@ export interface SiteQueryData {
   };
 }
 
+interface AddToMailchimpResult {
+  msg: string;
+  result: string;
+}
+
 export const SubscribingBlock: FC = () => {
   const { theme } = useTheme();
   const { site } = useStaticQuery<SiteQueryData>(query);
+  const [email, setEmail] = useState("");
+  const [result, setResult] = useState<AddToMailchimpResult | null>(null);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const result: AddToMailchimpResult = await addToMailchimp(email);
+    setResult(result);
+  };
 
   return (
     <div className={styles[theme]}>
@@ -38,15 +56,23 @@ export const SubscribingBlock: FC = () => {
         </strong>
         .
       </p>
-      <form className={styles.form}>
-        <input
-          className={styles.emailField}
-          type="email"
-          name="email"
-          placeholder="Email address"
-        />
-        <button className={styles.subscribeBtn}>Subscribe</button>
-      </form>
+      {result ? (
+        <p className={styles.result}>
+          {result.result === "success" ? <span>👍</span> : <span>🛑</span>}
+          {result.msg && <span> {result.msg}</span>}
+        </p>
+      ) : (
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <input
+            className={styles.emailField}
+            type="email"
+            name="email"
+            placeholder="Email address"
+            onChange={handleChange}
+          />
+          <button className={styles.subscribeBtn}>Subscribe</button>
+        </form>
+      )}
       {site.siteMetadata.substackLink && (
         <div>
           or{" "}
