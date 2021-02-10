@@ -26,6 +26,7 @@ const query = graphql`
           path
           name
         }
+        themeRepositoryUrl
       }
     }
   }
@@ -38,6 +39,7 @@ interface MainLayoutQuery {
       copyright: string;
       nav: NavItem[];
       footerNav: NavItem[];
+      themeRepositoryUrl: string;
     };
   };
 }
@@ -64,6 +66,7 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
         </section>
       </Container>
       <Footer
+        themeRepositoryUrl={siteMetadata.themeRepositoryUrl}
         copyright={siteMetadata.copyright}
         navItems={siteMetadata.footerNav}
         theme={theme}

@@ -1,7 +1,7 @@
 {
   "name": "example",
   "version": "0.0.1",
-  "description": "An example of the website that used gatsby-craeft-dev-theme",
+  "description": "An example of the website that used gatsby-l0g-dev-theme",
   "main": "index.js",
   "license": "MIT",
   "private": true,
@@ -9,7 +9,7 @@
     "add": "^2.0.6",
     "example": "^0.0.0",
     "gatsby": "^2.30.1",
-    "gatsby-craeft-dev-theme": "*",
+    "gatsby-l0g-dev-theme": "*",
     "gatsby-plugin-mailchimp": "^5.2.2",
     "gatsby-plugin-manifest": "^2.10.0",
     "gatsby-plugin-ts-config": "^1.1.5",

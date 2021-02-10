@@ -2,10 +2,9 @@ import React, { CSSProperties } from "react";
 import { ThemeValue } from "../types";
 
 import { PageTitle } from "./PageTitle";
-import { SearchField } from "./SearchField";
+// import { SearchField } from "./SearchField";
 
 import styles from "../../styles/posts-list-header.module.css";
-import { Link } from "gatsby";
 
 interface PostsListHeaderProps {
   theme: ThemeValue;
@@ -29,7 +28,7 @@ export const PostsListHeader = ({
         {/* <Link to="/tags" className="theme-link monospace">
           All Tags
         </Link> */}
-        <SearchField />
+        {/* <SearchField /> */}
       </div>
     </header>
   );

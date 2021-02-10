@@ -1,1 +1,1 @@
-# gatsby-craeft-theme-workspace
+# gatsby-l0g-theme-workspace

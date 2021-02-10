@@ -33,7 +33,7 @@ const IndexPage = ({ data: { allMdx } }: PageProps<DataType>) => {
 
   return (
     <MainLayout>
-      <PostsListHeader title="Latest Articles" theme={theme} />
+      <PostsListHeader title="Feed" theme={theme} />
       <PageGrid>
         <PostsSection>
           <PostsList posts={allMdx.edges} gridView="row" />
