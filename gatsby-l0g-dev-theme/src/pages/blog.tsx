@@ -70,6 +70,7 @@ export const query = graphql`
             slug
             date
             tags
+            type
             image {
               childImageSharp {
                 fluid(maxWidth: 1000) {

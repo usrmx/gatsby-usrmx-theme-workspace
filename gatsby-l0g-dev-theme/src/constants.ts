@@ -30,6 +30,7 @@ export const PAGES_ROUTES = {
   feed: {
     index: "/",
     post: "/feed/post",
+    paginationIndex: "/feed",
     pagination: "/feed/page",
   },
   about: {
@@ -40,6 +41,21 @@ export const PAGES_ROUTES = {
   },
 };
 
-export const RESOURCE_TYPE_ROUTES = {};
+export const RESOURCES_TYPE_ROUTE = {
+  blog: PAGES_ROUTES.blog.article,
+  post: PAGES_ROUTES.feed.post,
+  link: PAGES_ROUTES.feed.post,
+};
+
+export const HOME_PAGES_TYPE_ROUTE = {
+  blog: PAGES_ROUTES.blog.index,
+  post: PAGES_ROUTES.feed.index,
+  link: PAGES_ROUTES.feed.index,
+};
 
 export const POSTS_PER_PAGE = 6;
+
+export const POST_TYPES = {
+  blog: "blog",
+  post: "post",
+};

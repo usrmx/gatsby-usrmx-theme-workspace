@@ -9,11 +9,15 @@ import {
   SidePanel,
   PostsSection,
   PostsListHeader,
+  Pagination,
 } from "../components";
 import { PostEdge } from "../types";
 import { useTheme } from "../core";
-import { getTagsFromPosts } from "../utils";
-import { MAX_POSTS_COUNT_HOME_PAGE, PAGES_ROUTES } from "../constants";
+import {
+  MAX_POSTS_COUNT_HOME_PAGE,
+  PAGES_ROUTES,
+  POSTS_PER_PAGE,
+} from "../constants";
 
 interface DataType {
   allMdx: {
@@ -29,7 +33,7 @@ interface DataType {
 
 const IndexPage = ({ data: { allMdx } }: PageProps<DataType>) => {
   const { theme } = useTheme();
-  const tags = getTagsFromPosts(allMdx.edges);
+  const pagesCount = Math.ceil(allMdx.totalCount / POSTS_PER_PAGE);
 
   return (
     <MainLayout>
@@ -37,15 +41,13 @@ const IndexPage = ({ data: { allMdx } }: PageProps<DataType>) => {
       <PageGrid>
         <PostsSection>
           <PostsList posts={allMdx.edges} gridView="row" />
-          {allMdx.totalCount > MAX_POSTS_COUNT_HOME_PAGE && (
-            <h3 className="text-center monospace">
-              <Link
-                to={PAGES_ROUTES.blog.index}
-                className="underline theme-link"
-              >
-                view all
-              </Link>
-            </h3>
+          {pagesCount > 1 && (
+            <Pagination
+              routePath={PAGES_ROUTES.feed.paginationIndex}
+              theme={theme}
+              currentPage={1}
+              pagesCount={pagesCount}
+            />
           )}
         </PostsSection>
         <SidePanel>

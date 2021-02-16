@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql, PageProps } from "gatsby";
 import {
-  Breadcrumbs,
   MainLayout,
   PageGrid,
   PostsList,
@@ -9,6 +8,8 @@ import {
   PostsSection,
   SEO,
   Pagination,
+  SidePanel,
+  TagsBlock,
 } from "../components";
 import { useTheme } from "../core";
 import { PostEdge } from "../types";
@@ -28,44 +29,47 @@ interface PageContextType {
   pagesCount: number;
 }
 
-export const PostsPage = ({
+export const FeedPostsPage = ({
   data: { allMdx },
   pageContext: { currentPage, pagesCount },
 }: PageProps<DataType, PageContextType>) => {
   const { theme } = useTheme();
 
   return (
-    <MainLayout title="Blog">
+    <MainLayout title="Feed">
       {/* <SEO
           theme={theme}
           image={frontmatter.image.childImageSharp.fixed.src}
           title={frontmatter.title}
           description={excerpt}
         /> */}
-      <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Blog" }]} />
-      <PostsListHeader title="Blog" theme={theme} />
+      <PostsListHeader title="Feed" theme={theme} />
       <PageGrid>
         <PostsSection>
-          <PostsList posts={allMdx.edges} gridView="tile" />
+          <PostsList posts={allMdx.edges} gridView="row" />
+          <Pagination
+            pageRoutePath={PAGES_ROUTES.feed.pagination}
+            routePath={PAGES_ROUTES.feed.index}
+            theme={theme}
+            currentPage={currentPage}
+            pagesCount={pagesCount}
+          />
         </PostsSection>
+        <SidePanel>
+          <TagsBlock theme={theme} />
+        </SidePanel>
       </PageGrid>
-      <Pagination
-        routePath={PAGES_ROUTES.blog.index}
-        theme={theme}
-        currentPage={currentPage}
-        pagesCount={pagesCount}
-      />
     </MainLayout>
   );
 };
 
 export const query = graphql`
-  query PostsPage($skip: Int!, $limit: Int!) {
+  query FeedPostsPage($skip: Int!, $limit: Int!) {
     allMdx(
       limit: $limit
       skip: $skip
       filter: {
-        fileAbsolutePath: { regex: "/content/blog/" }
+        fileAbsolutePath: { regex: "/content/" }
         frontmatter: { hidden: { ne: true } }
       }
       sort: { fields: frontmatter___date, order: DESC }
@@ -74,6 +78,7 @@ export const query = graphql`
         node {
           excerpt
           frontmatter {
+            type
             title
             slug
             date
@@ -93,4 +98,4 @@ export const query = graphql`
   }
 `;
 
-export default PostsPage;
+export default FeedPostsPage;

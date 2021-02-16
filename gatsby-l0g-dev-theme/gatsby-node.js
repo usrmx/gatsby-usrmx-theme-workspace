@@ -5,6 +5,7 @@ const {
   TEMPLATES,
   PAGES_ROUTES,
   POSTS_PER_PAGE,
+  POST_TYPES,
 } = require("./options");
 
 const getRelatedPostsIds = (currentPost, posts) => {
@@ -89,6 +90,57 @@ const createNonExistentFolder = (path, reporter) => {
   }
 };
 
+const createPaginationPage = (
+  createPage,
+  pagesCount,
+  path,
+  index,
+  templateSrc
+) => {
+  const isFirstPage = index === 0;
+  const currentPage = index + 1;
+
+  if (isFirstPage) {
+    return;
+  }
+
+  createPage({
+    path: `${path}/${currentPage}`,
+    component: templateSrc,
+    context: {
+      limit: POSTS_PER_PAGE,
+      skip: index * POSTS_PER_PAGE,
+      currentPage: `${path}/${currentPage}`,
+      pagesCount,
+    },
+  });
+};
+
+const createPostPage = (
+  createPage,
+  currentPost,
+  index,
+  posts,
+  relatedPosts,
+  path,
+  templateSrc
+) => {
+  const relatedPostsIds = getRelatedPostsIds(currentPost, relatedPosts);
+  const prevPost = index === 0 ? null : posts[index - 1];
+  const nextPost = index === posts.length - 1 ? null : posts[index + 1];
+
+  createPage({
+    path: `${path}/${currentPost.node.frontmatter.slug}`,
+    component: templateSrc,
+    context: {
+      id: currentPost.node.id,
+      relatedPostsIds,
+      nextPost,
+      prevPost,
+    },
+  });
+};
+
 const onPreBootstrap = ({ reporter }) => {
   createNonExistentFolder(
     CONTENT_PATHS.site,
@@ -106,29 +158,6 @@ const onPreBootstrap = ({ reporter }) => {
 const createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
 
-  const blogPostsResult = await graphql(`
-    query {
-      allMdx(
-        filter: {
-          fileAbsolutePath: { regex: "/src/content/blog/" }
-          frontmatter: { hidden: { ne: true } }
-        }
-        sort: { fields: frontmatter___date, order: ASC }
-      ) {
-        edges {
-          node {
-            id
-            frontmatter {
-              slug
-              tags
-              title
-              date
-            }
-          }
-        }
-      }
-    }
-  `);
   const postsResult = await graphql(`
     query {
       allMdx(
@@ -142,6 +171,7 @@ const createPages = async ({ graphql, actions, reporter }) => {
           node {
             id
             frontmatter {
+              type
               slug
               tags
               title
@@ -153,36 +183,53 @@ const createPages = async ({ graphql, actions, reporter }) => {
     }
   `);
 
-  if (blogPostsResult.errors) {
+  if (postsResult.errors) {
     reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
   }
 
-  const blogPosts = blogPostsResult.data.allMdx.edges;
-  const posts = postsResult.data.allMdx.edges;
+  const allPosts = postsResult.data.allMdx.edges;
+  const blogPosts = allPosts.filter(
+    ({ node }) => node.frontmatter.type === POST_TYPES.blog
+  );
+  const feedPosts = allPosts.filter(
+    ({ node }) =>
+      node.frontmatter.type === POST_TYPES.post ||
+      node.frontmatter.type === POST_TYPES.link
+  );
 
-  // ------------ CREATING PAGES FOR EACH PUBLIC POST ------------
+  // ------------ CREATING PAGES FOR EACH PUBLIC BLOG POST ------------
 
   blogPosts.forEach((currentPost, index) => {
-    const relatedPostsIds = getRelatedPostsIds(currentPost, blogPosts);
-    const prevPost = index === 0 ? null : blogPosts[index - 1];
-    const nextPost =
-      index === blogPosts.length - 1 ? null : blogPosts[index + 1];
+    createPostPage(
+      createPage,
+      currentPost,
+      index,
+      blogPosts,
+      blogPosts,
+      PAGES_ROUTES.blog.post,
+      TEMPLATES.postPage
+    );
+  });
 
-    createPage({
-      path: `${PAGES_ROUTES.blog.post}/${currentPost.node.frontmatter.slug}`,
-      component: TEMPLATES.postPage,
-      context: {
-        id: currentPost.node.id,
-        relatedPostsIds,
-        nextPost,
-        prevPost,
-      },
-    });
+  // ------------ CREATING PAGES FOR EACH PUBLIC FEED POST ------------
+
+  console.log(feedPosts);
+
+  feedPosts.forEach((currentPost, index) => {
+    createPostPage(
+      createPage,
+      currentPost,
+      index,
+      feedPosts,
+      allPosts,
+      PAGES_ROUTES.feed.post,
+      TEMPLATES.postPage
+    );
   });
 
   // ------------ CREATING PAGE FOR ALL TAGS ------------
 
-  const allTags = getTagsFromPosts(posts);
+  const allTags = getTagsFromPosts(allPosts);
   const tagPostsCount = getTagsCount(allTags);
   const tags = Array.from(new Set(allTags).values());
 
@@ -229,28 +276,34 @@ const createPages = async ({ graphql, actions, reporter }) => {
     });
   });
 
-  // ------------ CREATING PAGINATION ------------
+  // ------------ CREATING BLOG PAGINATION ------------
 
-  const pagesCount = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
+  const blogPagesCount = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
 
-  Array.from({ length: pagesCount }).forEach((_, index) => {
-    const isFirstPage = index === 0;
-    const currentPage = index + 1;
+  Array.from({ length: blogPagesCount }).forEach((_, index) => {
+    createPaginationPage(
+      createPage,
+      blogPagesCount,
+      PAGES_ROUTES.blog.pagination,
+      index,
+      TEMPLATES.blogPostsPage
+    );
+  });
 
-    if (isFirstPage) {
-      return;
-    }
+  // ------------ CREATING FEED PAGINATION ------------
 
-    createPage({
-      path: `${PAGES_ROUTES.blog.pagination}/${currentPage}`,
-      component: TEMPLATES.postsPage,
-      context: {
-        limit: POSTS_PER_PAGE,
-        skip: index * POSTS_PER_PAGE,
-        currentPage,
-        pagesCount,
-      },
-    });
+  const feedPagesCount = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+
+  console.log(feedPagesCount);
+
+  Array.from({ length: feedPagesCount }).forEach((_, index) => {
+    createPaginationPage(
+      createPage,
+      feedPagesCount,
+      PAGES_ROUTES.feed.pagination,
+      index,
+      TEMPLATES.feedPostsPage
+    );
   });
 };
 

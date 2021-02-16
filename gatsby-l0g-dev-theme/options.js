@@ -32,7 +32,8 @@ const TEMPLATES = {
   postPage: `${__dirname}/src/templates/post-page.tsx`,
   tagsPage: `${__dirname}/src/templates/tags-page.tsx`,
   tagPostsPage: `${__dirname}/src/templates/tag-posts-page.tsx`,
-  postsPage: `${__dirname}/src/templates/posts-page.tsx`,
+  blogPostsPage: `${__dirname}/src/templates/blog-posts-page.tsx`,
+  feedPostsPage: `${__dirname}/src/templates/feed-posts-page.tsx`,
 };
 
 // need to merge it with /src/constants.ts PAGES_ROUTES
@@ -48,6 +49,11 @@ const PAGES_ROUTES = {
   tags: {
     index: "/tags",
   },
+  feed: {
+    index: "/",
+    post: "/feed/post",
+    pagination: "/feed/page",
+  },
   about: {
     index: "/about",
   },
@@ -58,6 +64,12 @@ const PAGES_ROUTES = {
 
 const POSTS_PER_PAGE = 6;
 
+const POST_TYPES = {
+  blog: "blog",
+  post: "post",
+  link: "link",
+};
+
 module.exports = {
   CONTENT_PATHS,
   CONTENT_NAMES,
@@ -66,4 +78,5 @@ module.exports = {
   TEMPLATES,
   PAGES_ROUTES,
   POSTS_PER_PAGE,
+  POST_TYPES,
 };

@@ -7,5 +7,6 @@ export const getMappedPosts = (posts: PostEdge[]): Post[] =>
     date: frontmatter.date,
     tags: frontmatter.tags || [],
     image: frontmatter.image?.childImageSharp?.fluid,
+    type: frontmatter.type,
     excerpt,
   }));

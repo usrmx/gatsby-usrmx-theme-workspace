@@ -14,12 +14,14 @@ import {
 } from "../components";
 
 import { useTheme } from "../core";
-import { PostEdge } from "../types";
+import { PostEdge, PostType } from "../types";
+import { HOME_PAGES_TYPE_ROUTE, RESOURCES_TYPE_ROUTE } from "../constants";
 
 interface DataType {
   mdx: {
     excerpt: string;
     frontmatter: {
+      type: PostType | null;
       date: string;
       title: string;
       tags: string[] | null;
@@ -41,6 +43,7 @@ interface Post {
   node: {
     id: string;
     frontmatter: {
+      type: PostType | null;
       slug: string;
       tags: string;
       title: string;
@@ -68,7 +71,7 @@ const PostPage = ({
     <MainLayout>
       <SEO
         theme={theme}
-        image={frontmatter.image.childImageSharp.fixed.src}
+        image={frontmatter?.image?.childImageSharp?.fixed?.src}
         title={frontmatter.title}
         description={excerpt}
       />
@@ -80,12 +83,15 @@ const PostPage = ({
           margin: "0 auto",
         }}
       >
-        <GoBackTo to="/blog" theme={theme}>
+        <GoBackTo
+          to={frontmatter.type ? HOME_PAGES_TYPE_ROUTE[frontmatter.type] : "/"}
+          theme={theme}
+        >
           Go Back To Blog
         </GoBackTo>
         <TextContent
           theme={theme}
-          image={frontmatter.image.childImageSharp.fluid}
+          image={frontmatter?.image?.childImageSharp?.fluid}
         >
           <header>
             <h1>{frontmatter.title}</h1>
@@ -103,7 +109,13 @@ const PostPage = ({
         >
           {nextPost ? (
             <GoBackTo
-              to={`/blog/article/${nextPost.node.frontmatter.slug}`}
+              to={
+                nextPost.node.frontmatter.type
+                  ? `${RESOURCES_TYPE_ROUTE[nextPost.node.frontmatter.type]}/${
+                      nextPost.node.frontmatter.slug
+                    }`
+                  : "/"
+              }
               theme={theme}
             >
               {`Next: ${nextPost.node.frontmatter.title}`}
@@ -113,7 +125,13 @@ const PostPage = ({
           )}
           {prevPost ? (
             <GoBackTo
-              to={`/blog/article/${prevPost.node.frontmatter.slug}`}
+              to={
+                prevPost.node.frontmatter.type
+                  ? `${RESOURCES_TYPE_ROUTE[prevPost.node.frontmatter.type]}/${
+                      prevPost.node.frontmatter.slug
+                    }`
+                  : "/"
+              }
               theme={theme}
               direction="right"
             >
@@ -137,6 +155,7 @@ export const query = graphql`
     mdx(id: { eq: $id }) {
       excerpt
       frontmatter {
+        type
         title
         date
         tags
@@ -158,6 +177,7 @@ export const query = graphql`
         node {
           id
           frontmatter {
+            type
             slug
             title
             date

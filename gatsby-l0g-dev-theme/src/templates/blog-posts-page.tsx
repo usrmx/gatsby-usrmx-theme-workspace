@@ -1,19 +1,18 @@
-import { graphql, PageProps } from "gatsby";
 import React from "react";
-
+import { graphql, PageProps } from "gatsby";
 import {
   Breadcrumbs,
   MainLayout,
   PageGrid,
-  Pagination,
   PostsList,
   PostsListHeader,
   PostsSection,
-  SidePanel,
+  SEO,
+  Pagination,
 } from "../components";
-import { PAGES_ROUTES } from "../constants";
 import { useTheme } from "../core";
 import { PostEdge } from "../types";
+import { PAGES_ROUTES } from "../constants";
 
 interface DataType {
   allMdx: {
@@ -22,54 +21,53 @@ interface DataType {
   };
 }
 
-interface PageContextValue {
-  tag: string;
+interface PageContextType {
   limit: number;
   skip: number;
   currentPage: number;
   pagesCount: number;
 }
 
-const TagPostsPage = ({
+export const BlogPostsPage = ({
   data: { allMdx },
-  pageContext: { tag, currentPage, pagesCount },
-}: PageProps<DataType, PageContextValue>) => {
+  pageContext: { currentPage, pagesCount },
+}: PageProps<DataType, PageContextType>) => {
   const { theme } = useTheme();
 
   return (
-    <MainLayout title="Tags">
-      <Breadcrumbs
-        items={[
-          { to: "/", label: "Home" },
-          { to: PAGES_ROUTES.tags.index, label: "Tags" },
-          { label: tag },
-        ]}
-      />
-      <PostsListHeader title={`#${tag}`} theme={theme} />
+    <MainLayout title="Blog">
+      {/* <SEO
+          theme={theme}
+          image={frontmatter.image.childImageSharp.fixed.src}
+          title={frontmatter.title}
+          description={excerpt}
+        /> */}
+      <Breadcrumbs items={[{ to: "/", label: "Home" }, { label: "Blog" }]} />
+      <PostsListHeader title="Blog" theme={theme} />
       <PageGrid>
         <PostsSection>
-          <PostsList posts={allMdx.edges} gridView="row" />
-          {pagesCount > 1 && (
-            <Pagination
-              routePath={`${PAGES_ROUTES.tags.index}/${tag}`}
-              theme={theme}
-              currentPage={currentPage}
-              pagesCount={pagesCount}
-            />
-          )}
+          <PostsList posts={allMdx.edges} gridView="tile" />
         </PostsSection>
-        <SidePanel />
       </PageGrid>
+      <Pagination
+        routePath={PAGES_ROUTES.blog.index}
+        theme={theme}
+        currentPage={currentPage}
+        pagesCount={pagesCount}
+      />
     </MainLayout>
   );
 };
 
 export const query = graphql`
-  query TagPostsPage($tag: String!, $skip: Int!, $limit: Int!) {
+  query BlogPostsPage($skip: Int!, $limit: Int!) {
     allMdx(
       limit: $limit
       skip: $skip
-      filter: { frontmatter: { hidden: { ne: true }, tags: { in: [$tag] } } }
+      filter: {
+        fileAbsolutePath: { regex: "/content/blog/" }
+        frontmatter: { hidden: { ne: true } }
+      }
       sort: { fields: frontmatter___date, order: DESC }
     ) {
       edges {
@@ -96,4 +94,4 @@ export const query = graphql`
   }
 `;
 
-export default TagPostsPage;
+export default BlogPostsPage;

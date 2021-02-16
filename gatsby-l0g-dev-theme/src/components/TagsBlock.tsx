@@ -41,7 +41,7 @@ export const TagsBlock = ({ theme }: TagsBlockProps) => {
   );
 };
 
-export const query = graphql`
+const query = graphql`
   query TagsBlock {
     allMdx(
       filter: {

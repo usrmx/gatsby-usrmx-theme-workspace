@@ -6,7 +6,7 @@ import { GridViewValue, PostEdge } from "../types";
 import { getMappedPosts } from "../utils";
 
 import { StyleModules } from "../style-modules";
-import { PAGES_ROUTES } from "../constants";
+import { RESOURCES_TYPE_ROUTE } from "../constants";
 
 interface PostsListProps {
   posts: PostEdge[];
@@ -22,7 +22,9 @@ export const PostsList = ({ posts: postsEdges, gridView }: PostsListProps) => {
         <PostCard
           key={post.slug}
           {...post}
-          to={`${PAGES_ROUTES.blog.article}/${post.slug}`}
+          to={
+            post.type ? `${RESOURCES_TYPE_ROUTE[post.type]}/${post.slug}` : "/"
+          }
           view={gridView}
         />
       ))}
