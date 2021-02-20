@@ -53,6 +53,12 @@ export const HOME_PAGES_TYPE_ROUTE = {
   link: PAGES_ROUTES.feed.index,
 };
 
+export const HOME_PAGES_TYPE_TITLES = {
+  blog: "Go Back To Blog",
+  post: "Go Back To Feed",
+  link: "Go Back To Feed",
+};
+
 export const POSTS_PER_PAGE = 6;
 
 export const POST_TYPES = {

@@ -1,8 +1,6 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { MDXRenderer } from "gatsby-plugin-mdx";
 import React from "react";
 
-import { InfoCard } from "./InfoCard";
+import { Blurb } from "./Blurb";
 import { Subscribing } from "./Subscribing";
 import { SocialsBlock } from "./SocialsBlock";
 
@@ -16,35 +14,15 @@ interface SidePanelProps {
   children?: React.ReactNode;
 }
 
-interface DataType {
-  mdx: {
-    body: string;
-  };
-}
-
 export const SidePanel = ({ children }: SidePanelProps) => {
   const { theme } = useTheme();
-  const { mdx } = useStaticQuery<DataType>(query);
 
   return (
     <aside className={styles.panel}>
-      <InfoCard theme={theme}>
-        <h3 className="monospace" style={{ fontWeight: "bold" }}>
-          About 💾
-        </h3>
-        {mdx ? <MDXRenderer>{mdx.body}</MDXRenderer> : null}
-      </InfoCard>
+      <Blurb theme={theme} />
       <Subscribing theme={theme} />
       <SocialsBlock theme={theme} />
       {children}
     </aside>
   );
 };
-
-const query = graphql`
-  query SidePanel {
-    mdx(frontmatter: { key: { eq: "blurb" } }) {
-      body
-    }
-  }
-`;

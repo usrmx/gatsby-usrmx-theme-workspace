@@ -17,3 +17,7 @@
 .column .tag {
   margin-bottom: 0.5rem;
 }
+
+.column .tag:last-child {
+  margin-bottom: 0;
+}

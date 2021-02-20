@@ -12,6 +12,10 @@
   width: fit-content;
 }
 
+.block a:last-child {
+  margin-bottom: 0;
+}
+
 .block a span:hover {
   opacity: 0.7;
 }

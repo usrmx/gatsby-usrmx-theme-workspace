@@ -12,6 +12,7 @@ module.exports = {
     url: "https://localhost:8000",
     image: "",
     twitterUsername: "w1zm8",
+    githubUsername: "w1zm8",
     nav: [
       { path: "/", name: "Home" },
       { path: "/blog", name: "Blog" },

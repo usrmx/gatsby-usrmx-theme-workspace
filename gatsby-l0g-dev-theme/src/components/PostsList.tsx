@@ -19,14 +19,7 @@ export const PostsList = ({ posts: postsEdges, gridView }: PostsListProps) => {
   return (
     <div className={StyleModules.postsList.list}>
       {posts.map((post) => (
-        <PostCard
-          key={post.slug}
-          {...post}
-          to={
-            post.type ? `${RESOURCES_TYPE_ROUTE[post.type]}/${post.slug}` : "/"
-          }
-          view={gridView}
-        />
+        <PostCard key={post.slug} {...post} view={gridView} />
       ))}
     </div>
   );

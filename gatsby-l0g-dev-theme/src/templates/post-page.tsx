@@ -19,7 +19,11 @@ import {
 
 import { useTheme } from "../core";
 import { PostEdge, PostType } from "../types";
-import { HOME_PAGES_TYPE_ROUTE, RESOURCES_TYPE_ROUTE } from "../constants";
+import {
+  HOME_PAGES_TYPE_ROUTE,
+  HOME_PAGES_TYPE_TITLES,
+  RESOURCES_TYPE_ROUTE,
+} from "../constants";
 
 interface DataType {
   mdx: {
@@ -56,6 +60,12 @@ const PostPage = ({
   },
 }: PageProps<DataType, PageContextType>) => {
   const { theme } = useTheme();
+  const { type, image, title, date, tags } = frontmatter;
+  const goBackToUrl = type ? HOME_PAGES_TYPE_ROUTE[type] : "/";
+  const goBackTitle = type ? HOME_PAGES_TYPE_TITLES[type] : "";
+  const postUrl = type
+    ? `${RESOURCES_TYPE_ROUTE[type]}/${frontmatter.slug}`
+    : "/";
 
   return (
     <MainLayout>
@@ -63,8 +73,8 @@ const PostPage = ({
       <Container>
         <SEO
           theme={theme}
-          image={frontmatter?.image?.childImageSharp?.fixed?.src}
-          title={frontmatter.title}
+          image={image?.childImageSharp?.fixed?.src}
+          title={title}
           description={excerpt}
         />
         <article
@@ -75,29 +85,18 @@ const PostPage = ({
             margin: "0 auto",
           }}
         >
-          <GoBackTo
-            to={
-              frontmatter.type ? HOME_PAGES_TYPE_ROUTE[frontmatter.type] : "/"
-            }
-            theme={theme}
-          >
-            Go Back To Blog
+          <GoBackTo to={goBackToUrl} theme={theme}>
+            {goBackTitle}
           </GoBackTo>
-          <TextContent
-            theme={theme}
-            image={frontmatter?.image?.childImageSharp?.fluid}
-          >
+          <TextContent theme={theme} image={image?.childImageSharp?.fluid}>
             <header>
-              <h1>{frontmatter.title}</h1>
-              <PostInfo date={frontmatter.date} />
-              <PostTags tags={frontmatter.tags || []} />
+              <h1>{title}</h1>
+              <PostInfo date={date} />
+              <PostTags tags={tags || []} />
               <hr />
             </header>
             {body && <MDXRenderer>{body}</MDXRenderer>}
-            <PostShareButtons
-              postTitle={frontmatter.title}
-              postUrl={`${RESOURCES_TYPE_ROUTE.blog}/${frontmatter.slug}`}
-            />
+            <PostShareButtons postTitle={title} postUrl={postUrl} />
           </TextContent>
         </article>
       </Container>

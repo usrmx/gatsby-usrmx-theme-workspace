@@ -10,7 +10,7 @@ import PostCardExcerpt, { VARIANT } from "./PostCardExcerpt";
 import { PostTags } from "./PostTags";
 import { PostInfo } from "./PostInfo";
 
-import { MAX_TAGS_COUNT } from "../constants";
+import { MAX_TAGS_COUNT, RESOURCES_TYPE_ROUTE } from "../constants";
 
 import { StyleModules } from "../style-modules";
 import { capitalize } from "../utils";
@@ -18,7 +18,6 @@ import { capitalize } from "../utils";
 const styles = StyleModules.postCard;
 
 interface PostCardProps extends Post {
-  to: string;
   view?: GridViewValue;
 }
 
@@ -29,11 +28,12 @@ export const PostCard = ({
   excerpt,
   date,
   tags,
-  to,
+  type,
   view = "tile",
 }: PostCardProps) => {
   const { theme } = useTheme();
   const styleName = `${view}${capitalize(theme)}`;
+  const to = type ? `${RESOURCES_TYPE_ROUTE[type]}/${slug}` : "/";
 
   return (
     <article className={styles[styleName]}>

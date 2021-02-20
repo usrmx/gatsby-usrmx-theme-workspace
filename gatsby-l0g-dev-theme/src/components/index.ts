@@ -32,5 +32,8 @@ export { AboutBlock } from "./AboutBlock";
 export { RelatedPosts } from "./RelatedPosts";
 export { Comments } from "./Comments";
 export { PostShareButtons } from "./PostShareButtons";
+export { TwitterFollowButton } from "./TwitterFollowButton";
+export { GitHubFollowButton } from "./GitHubFollowButton";
+export { Blurb } from "./Blurb";
 
 export { default as MainLayout } from "./MainLayout";
