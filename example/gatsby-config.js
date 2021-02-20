@@ -6,12 +6,12 @@ module.exports = {
   siteMetadata: {
     logoTitle: "L0G.DEV",
     title: "L0G.DEV 🦉",
-    titleTemplate: "%s | l0g.dev 🦉",
+    titleTemplate: "%s | L0G.DEV 🦉",
     description:
       "Elit dolore enim exercitation aliquip commodo ex sit do aliquip incididunt adipisicing velit amet.",
     url: "https://localhost:8000",
     image: "",
-    twitterUsername: "@w1zm8",
+    twitterUsername: "w1zm8",
     nav: [
       { path: "/", name: "Home" },
       { path: "/blog", name: "Blog" },
@@ -26,7 +26,6 @@ module.exports = {
       { path: "https://github.com/w1zm8", name: "GitHub" },
     ],
     avatarSrc: "./static/images/avatar.jpg",
-    themeRepositoryUrl: "https://github.com/w1zm8/gatsby-l0g-theme-workspace",
     socials: [
       {
         name: "Twitter",

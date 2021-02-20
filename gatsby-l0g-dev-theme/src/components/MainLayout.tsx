@@ -25,7 +25,6 @@ const query = graphql`
           path
           name
         }
-        themeRepositoryUrl
       }
     }
   }
@@ -38,7 +37,6 @@ interface MainLayoutQuery {
       copyright: string;
       nav: NavItem[];
       footerNav: NavItem[];
-      themeRepositoryUrl: string;
     };
   };
 }
@@ -60,7 +58,6 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
       <Header logoTitle={siteMetadata.logoTitle} navItems={siteMetadata.nav} />
       <MDXProvider components={{}}>{children}</MDXProvider>
       <Footer
-        themeRepositoryUrl={siteMetadata.themeRepositoryUrl}
         copyright={siteMetadata.copyright}
         navItems={siteMetadata.footerNav}
         theme={theme}

@@ -22,10 +22,11 @@ export const Pagination = ({
   const isFirst = currentPage === 1;
   const isLast = currentPage === pagesCount;
   const prevPageIndex = currentPage - 1;
+  const nextPageIndex = currentPage + 1;
   const prevPagePath =
     prevPageIndex === 1 ? routePath : `${fullPageRoutePath}/${prevPageIndex}`;
-  const nextPagePath = `${fullPageRoutePath}/${currentPage + 1}`;
-  const visiblePagesRange = 2;
+  const nextPagePath = `${fullPageRoutePath}/${nextPageIndex}`;
+  // const visiblePagesRange = 2;
 
   return (
     <div
@@ -45,8 +46,7 @@ export const Pagination = ({
       {Array.from({ length: pagesCount }).map((_, index) => {
         const pageNumber = index + 1;
 
-        return pageNumber >= currentPage - visiblePagesRange &&
-          pageNumber <= currentPage + visiblePagesRange ? (
+        return (
           <PaginationLink
             theme={theme}
             isActive={currentPage === pageNumber}
@@ -59,7 +59,7 @@ export const Pagination = ({
           >
             {pageNumber}
           </PaginationLink>
-        ) : null;
+        );
       })}
       <PaginationLink
         key="page-next"

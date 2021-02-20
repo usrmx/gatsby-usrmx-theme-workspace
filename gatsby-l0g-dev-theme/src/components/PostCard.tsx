@@ -35,8 +35,6 @@ export const PostCard = ({
   const { theme } = useTheme();
   const styleName = `${view}${capitalize(theme)}`;
 
-  const commentsCount = Math.floor(Math.random() * Math.floor(10));
-
   return (
     <article className={styles[styleName]}>
       {image && (
@@ -60,7 +58,7 @@ export const PostCard = ({
           </PostCardExcerpt>
         </section>
         <footer>
-          <PostInfo date={date} commentsCount={commentsCount} postLink={to} />
+          <PostInfo date={date} />
         </footer>
       </div>
     </article>

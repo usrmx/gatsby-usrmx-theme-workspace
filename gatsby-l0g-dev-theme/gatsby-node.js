@@ -111,7 +111,7 @@ const createPaginationPage = (
     context: {
       limit: POSTS_PER_PAGE,
       skip: index * POSTS_PER_PAGE,
-      currentPage: `${path}/${currentPage}`,
+      currentPage,
       pagesCount,
     },
   });
@@ -127,6 +127,7 @@ const createPostPage = (
   templateSrc
 ) => {
   const relatedPostsIds = getRelatedPostsIds(currentPost, relatedPosts);
+
   // const prevPost = index === 0 ? null : posts[index - 1];
   // const nextPost = index === posts.length - 1 ? null : posts[index + 1];
 

@@ -31,5 +31,6 @@ export { Icons } from "./Icons";
 export { AboutBlock } from "./AboutBlock";
 export { RelatedPosts } from "./RelatedPosts";
 export { Comments } from "./Comments";
+export { PostShareButtons } from "./PostShareButtons";
 
 export { default as MainLayout } from "./MainLayout";

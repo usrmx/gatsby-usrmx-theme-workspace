@@ -10,15 +10,14 @@ import {
   TextContent,
   SEO,
   GoBackTo,
-  PostsList,
-  Subscribing,
   AboutBlock,
   Container,
   Comments,
   RelatedPosts,
+  PostShareButtons,
 } from "../components";
 
-import { useTheme, useUtterancesComments } from "../core";
+import { useTheme } from "../core";
 import { PostEdge, PostType } from "../types";
 import { HOME_PAGES_TYPE_ROUTE, RESOURCES_TYPE_ROUTE } from "../constants";
 
@@ -26,6 +25,7 @@ interface DataType {
   mdx: {
     excerpt: string;
     frontmatter: {
+      slug: string;
       type: PostType | null;
       date: string;
       title: string;
@@ -41,18 +41,6 @@ interface DataType {
   };
   allMdx: {
     edges: PostEdge[];
-  };
-}
-
-interface Post {
-  node: {
-    id: string;
-    frontmatter: {
-      type: PostType | null;
-      slug: string;
-      tags: string;
-      title: string;
-    };
   };
 }
 
@@ -101,11 +89,15 @@ const PostPage = ({
           >
             <header>
               <h1>{frontmatter.title}</h1>
-              <PostInfo date={frontmatter.date} commentsCount={5} />
+              <PostInfo date={frontmatter.date} />
               <PostTags tags={frontmatter.tags || []} />
               <hr />
             </header>
             {body && <MDXRenderer>{body}</MDXRenderer>}
+            <PostShareButtons
+              postTitle={frontmatter.title}
+              postUrl={`${RESOURCES_TYPE_ROUTE.blog}/${frontmatter.slug}`}
+            />
           </TextContent>
         </article>
       </Container>
@@ -113,7 +105,7 @@ const PostPage = ({
       <Container>
         <Comments />
       </Container>
-      <RelatedPosts posts={allMdx.edges} />
+      {allMdx.edges.length > 0 && <RelatedPosts posts={allMdx.edges} />}
     </MainLayout>
   );
 };
@@ -123,6 +115,7 @@ export const query = graphql`
     mdx(id: { eq: $id }) {
       excerpt
       frontmatter {
+        slug
         type
         title
         date

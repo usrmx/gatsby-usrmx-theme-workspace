@@ -38,7 +38,6 @@ export const useUtterancesComments = ({
 
     if (commentBlockRef && commentBlockRef.current) {
       const prevCommentBlock = document.querySelector(".utterances");
-      console.log(prevCommentBlock);
 
       if (prevCommentBlock) {
         commentBlockRef.current?.removeChild(prevCommentBlock);

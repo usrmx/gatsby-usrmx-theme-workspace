@@ -10,18 +10,19 @@ import { StyleModules } from "../style-modules";
 
 const styles = StyleModules.footer;
 
+const themeRepositoryUrl =
+  "https://github.com/w1zm8/gatsby-l0g-theme-workspace";
+
 interface FooterProps {
   theme?: ThemeValue;
   copyright: string;
   navItems: NavItem[];
-  themeRepositoryUrl: string;
 }
 
 export const Footer = ({
   theme = DEFAULT_THEME,
   copyright,
   navItems,
-  themeRepositoryUrl,
 }: FooterProps) => {
   return (
     <footer className={styles[theme]}>
@@ -35,7 +36,7 @@ export const Footer = ({
               href={themeRepositoryUrl}
               target="_blank"
             >
-              theme
+              l0g theme
             </a>{" "}
             for{" "}
             <a
