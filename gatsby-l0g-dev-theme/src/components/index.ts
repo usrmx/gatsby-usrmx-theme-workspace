@@ -34,6 +34,6 @@ export { PostShareButtons } from "./PostShareButtons";
 export { TwitterFollowButton } from "./TwitterFollowButton";
 export { GitHubFollowButton } from "./GitHubFollowButton";
 export { Blurb } from "./Blurb";
-import { Icon } from "./Icon";
+export { Icon } from "./Icon";
 
 export { default as MainLayout } from "./MainLayout";
