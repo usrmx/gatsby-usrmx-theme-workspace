@@ -6,6 +6,10 @@ import { FullWidthWrapper } from "./FullWidthWrapper";
 import { Icon } from "./Icon";
 import { PostsList } from "./PostsList";
 
+import { StyleModules } from "../style-modules";
+
+const styles = StyleModules.relatedPosts;
+
 interface RelatedPostsProps {
   posts: PostEdge[];
 }
@@ -18,12 +22,7 @@ export const RelatedPosts = ({ posts }: RelatedPostsProps) => {
           See also <Icon src={icons.emojiBooks} widthSize="28px" />
         </h2>
         <br />
-        <div
-          style={{
-            width: "75%",
-            margin: "0 auto",
-          }}
-        >
+        <div className={styles.list}>
           <PostsList posts={posts} gridView="row" />
         </div>
       </Container>

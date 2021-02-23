@@ -4,7 +4,7 @@ import { ThemeValue } from "../../types";
 export interface UseUtterancesCommentsParams {
   options: {
     repo: string;
-    ["issue-term"]: string;
+    issueTerm: string;
     id: string;
     label: string;
     theme: ThemeValue;
@@ -17,13 +17,18 @@ export const useUtterancesComments = ({
   const commentBlockRef = useRef<HTMLDivElement>(null);
 
   const setAttributes = (scriptTag: HTMLScriptElement) => {
-    const { theme, ...attrubutes } = options;
+    const { theme, issueTerm, ...attrubutes } = options;
+    console.log("--------------issueTerm--------------", issueTerm);
+    if (!issueTerm) {
+      return;
+    }
     const attrubutesNames = Object.keys(
       attrubutes
     ) as (keyof typeof attrubutes)[];
     attrubutesNames.forEach((key) => {
       scriptTag.setAttribute(key, options[key]);
     });
+    scriptTag.setAttribute("issue-term", issueTerm);
     scriptTag.setAttribute("theme", `github-${theme}`);
     scriptTag.setAttribute("crossorigin", "anonymous");
     scriptTag.setAttribute("async", "");

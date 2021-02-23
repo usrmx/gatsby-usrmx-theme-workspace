@@ -24,6 +24,7 @@ import postTags from "../styles/post-tags.module.css";
 import postsListHeader from "../styles/posts-list-header.module.css";
 import postsList from "../styles/posts-list.module.css";
 import postsSection from "../styles/posts-section.module.css";
+import relatedPosts from "../styles/related-posts.module.css";
 import searchField from "../styles/search-field.module.css";
 import sidePanel from "../styles/side-panel.module.css";
 import socialsBlock from "../styles/socials-block.module.css";
@@ -31,6 +32,7 @@ import subscribingBlock from "../styles/subscribing-block.module.css";
 import subscribing from "../styles/subscribing.module.css";
 import table from "../styles/table.module.css";
 import textContent from "../styles/text-content.module.css";
+import themeSwitcher from "../styles/theme-switcher.module.css";
 
 export const StyleModules = {
   allTagsList,
@@ -59,6 +61,7 @@ export const StyleModules = {
   postsList,
   postsListHeader,
   postsSection,
+  relatedPosts,
   searchField,
   sidePanel,
   socialsBlock,
@@ -66,4 +69,5 @@ export const StyleModules = {
   subscribing,
   table,
   textContent,
+  themeSwitcher,
 };

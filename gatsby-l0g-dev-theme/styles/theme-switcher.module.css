@@ -1,0 +1,18 @@
+.btn {
+  border: none;
+  outline: none;
+  background: none;
+
+  display: flex;
+  align-items: center;
+}
+
+.btn img {
+  width: 18px;
+}
+
+@media (max-width: 690px) {
+  .btn {
+    width: 30px;
+  }
+}

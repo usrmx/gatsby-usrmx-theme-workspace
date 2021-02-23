@@ -7,7 +7,7 @@ export const Comments = () => {
   const { theme } = useTheme();
   const options = {
     repo: process.env.UTTERANCES_REPO || "",
-    "issue-term": process.env.UTTERANCES_ISSUETERM || "",
+    issueTerm: process.env.UTTERANCES_ISSUETERM || "",
     label: process.env.UTTERANCES_LABEL || "",
     id: process.env.UTTERANCES_ID || "",
   };

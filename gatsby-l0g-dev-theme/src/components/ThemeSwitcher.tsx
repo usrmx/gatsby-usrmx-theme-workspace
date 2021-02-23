@@ -3,6 +3,10 @@ import { ThemeValue } from "../types";
 import { icons } from "../icons";
 import { Icon } from "./Icon";
 
+import { StyleModules } from "../style-modules";
+
+const styles = StyleModules.themeSwitcher;
+
 interface ThemeSwitcherProps {
   theme?: ThemeValue;
   onToggle?(): void;
@@ -10,11 +14,7 @@ interface ThemeSwitcherProps {
 
 export const ThemeSwitcher = ({ theme, onToggle }: ThemeSwitcherProps) => {
   return (
-    <button
-      className="no-style-btn"
-      onClick={onToggle}
-      style={{ display: "flex", alignItems: "center" }}
-    >
+    <button className={styles.btn} onClick={onToggle}>
       {theme === "dark" ? (
         <Icon src={icons.emojiSun} widthSize="18px" />
       ) : (
