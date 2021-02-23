@@ -92,7 +92,7 @@ export const SEO = ({
       {metaImage && <meta name="og:image:height" content={metaImage.height} />}
 
       {/* <Twitter> */}
-      {seo.image && <meta name="twitter:card" content="summary_large_image" />}
+      {seo.image && <meta name="twitter:card" content="summary" />}
       {twitterUsername && (
         <meta name="twitter:creator" content={`@${twitterUsername}`} />
       )}
