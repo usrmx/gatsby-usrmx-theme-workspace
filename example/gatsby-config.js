@@ -4,48 +4,44 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    logoTitle: "L0G.DEV",
-    title: "L0G.DEV 🦉",
-    titleTemplate: "%s | L0G.DEV 🦉",
+    logoTitle: "/usr/max",
+    title: "usrmx.com 🦉",
+    titleTemplate: "%s | usrmx.com 🦉",
     description:
       "Elit dolore enim exercitation aliquip commodo ex sit do aliquip incididunt adipisicing velit amet.",
     keywords: ["programming", "software development", "grokking"],
     siteUrl: process.env.SITE_URL,
     image: "images/default-image.png",
-    twitterUsername: "w1zm8",
-    githubUsername: "w1zm8",
+    twitterUsername: "usrmx",
+    githubUsername: "usrmx",
     nav: [
       { path: "/", name: "Home" },
       { path: "/blog", name: "Blog" },
+      { path: "/notes", name: "Notes" },
       { path: "/about", name: "About" },
     ],
-    copyright: "© l0g.dev 2021",
+    copyright: "© usrmx.com 2021",
     footerNav: [
       { path: "/blog", name: "Blog" },
       { path: "/about", name: "About" },
-      { path: "https://twitter.com/w1zm8", name: "Twitter" },
-      { path: "https://github.com/w1zm8", name: "GitHub" },
+      { path: "https://twitter.com/usrmx", name: "Twitter" },
+      { path: "https://github.com/usrmx", name: "GitHub" },
     ],
     avatarSrc: "./static/images/avatar.jpg",
     socials: [
       {
         name: "Twitter",
-        url: "https://twitter.com/intent/follow?screen_name=w1zm8",
+        url: "https://twitter.com/intent/follow?screen_name=usrmx",
         icon: "twitter",
       },
       {
         name: "GitHub",
-        url: "https://github.com/w1zm8",
+        url: "https://github.com/usrmx",
         icon: "github",
       },
       {
-        name: "r/l0g",
-        url: "https://www.reddit.com/r/l0g",
-        icon: "reddit",
-      },
-      {
         name: "Patreon",
-        url: "https://www.patreon.com/w1zm8",
+        url: "https://www.patreon.com/usrmx",
         icon: "patreon",
       },
     ],
@@ -62,7 +58,7 @@ module.exports = {
       },
     },
     "gatsby-plugin-ts-config",
-    "gatsby-l0g-dev-theme",
+    "gatsby-usrmx-theme",
     "gatsby-plugin-robots-txt",
   ],
 };

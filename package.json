@@ -1,14 +1,14 @@
 {
-  "name": "gatsby-l0g-theme-workspace",
+  "name": "gatsby-usrmx-theme-workspace",
   "version": "0.0.1",
   "description": "Gatsby.js theme",
-  "repository": "https://github.com/w1zm8/gatsby-l0g-theme-workspace",
-  "author": "w1zm8",
+  "repository": "https://github.com/usrmx/gatsby-usrmx-theme-workspace",
+  "author": "usrmx",
   "license": "MIT",
   "private": true,
   "workspaces": [
     "example",
-    "gatsby-l0g-dev-theme"
+    "gatsby-usrmx-theme"
   ],
   "scripts": {
     "start": "yarn workspace example develop",

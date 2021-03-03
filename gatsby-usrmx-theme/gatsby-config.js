@@ -45,6 +45,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: CONTENT_PATHS.notes,
+        name: CONTENT_NAMES.notes,
+      },
+    },
+    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
@@ -53,6 +60,13 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 1200,
+            },
+          },
+          {
+            resolve: "gatsby-remark-double-brackets-link",
+            options: {
+              titleToURLPath: `${__dirname}/utils/resolve-url.js`,
+              stripBrackets: true,
             },
           },
         ],

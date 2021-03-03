@@ -11,7 +11,7 @@ import { StyleModules } from "../style-modules";
 const styles = StyleModules.footer;
 
 const themeRepositoryUrl =
-  "https://github.com/w1zm8/gatsby-l0g-theme-workspace";
+  "https://github.com/usrmx/gatsby-usrmx-theme-workspace";
 
 interface FooterProps {
   theme?: ThemeValue;
@@ -36,7 +36,7 @@ export const Footer = ({
               href={themeRepositoryUrl}
               target="_blank"
             >
-              l0g theme
+              usrmx theme
             </a>{" "}
             for{" "}
             <a

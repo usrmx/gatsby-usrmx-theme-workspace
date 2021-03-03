@@ -1,11 +1,13 @@
 const BLOG_SLUG_PREFIX = "/blog";
 const POSTS_SLUG_PREFIX = "/posts";
+const NOTES_SLUG_PREFIX = "/notes";
 
 const CONTENT_PATHS = {
   site: `src/site`,
   images: `src/images`,
   blog: `src/content${BLOG_SLUG_PREFIX}`,
   posts: `src/content${POSTS_SLUG_PREFIX}`,
+  notes: `src/content${NOTES_SLUG_PREFIX}`,
 };
 
 const CONTENT_NAMES = {
@@ -13,6 +15,7 @@ const CONTENT_NAMES = {
   blog: "blog",
   posts: "posts",
   images: "images",
+  notes: "notes",
 };
 
 const CONTENT_REQUIRED_FILES = {
@@ -36,6 +39,7 @@ const TEMPLATES = {
   tagPostsPage: `${__dirname}/src/templates/tag-posts-page.tsx`,
   blogPostsPage: `${__dirname}/src/templates/blog-posts-page.tsx`,
   feedPostsPage: `${__dirname}/src/templates/feed-posts-page.tsx`,
+  notePage: `${__dirname}/src/templates/note-page.tsx`,
 };
 
 // need to merge it with /src/constants.ts PAGES_ROUTES
@@ -61,6 +65,9 @@ const PAGES_ROUTES = {
   },
   contact: {
     index: "/contact",
+  },
+  notes: {
+    index: "/notes",
   },
 };
 

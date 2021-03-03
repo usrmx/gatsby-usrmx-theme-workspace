@@ -1,63 +1,60 @@
 import React from "react";
-import { graphql, PageProps } from "gatsby";
+import { PageProps, graphql } from "gatsby";
+
 import {
-  MainLayout,
   PageGrid,
+  MainLayout,
   PostsList,
-  PostsListHeader,
-  PostsSection,
-  SEO,
-  Pagination,
-  SidePanel,
   TagsBlock,
+  SidePanel,
+  PostsSection,
+  PostsListHeader,
+  Pagination,
   Container,
 } from "../components";
-import { useTheme } from "../core";
 import { PostEdge } from "../types";
-import { PAGES_ROUTES } from "../constants";
+import { useTheme } from "../core";
+import { PAGES_ROUTES, POSTS_PER_PAGE } from "../constants";
 
 interface DataType {
   allMdx: {
     edges: PostEdge[];
     totalCount: number;
   };
+  site: {
+    siteMetadata: {
+      avatarSrc: any;
+    };
+  };
 }
 
 interface PageContextType {
-  limit: number;
-  skip: number;
-  currentPage: number;
-  pagesCount: number;
   convertkitEndpoint: string;
 }
 
-export const FeedPostsPage = ({
+const IndexPage = ({
   data: { allMdx },
-  pageContext: { currentPage, pagesCount, convertkitEndpoint },
+  pageContext: { convertkitEndpoint },
 }: PageProps<DataType, PageContextType>) => {
   const { theme } = useTheme();
+  const pagesCount = Math.ceil(allMdx.totalCount / POSTS_PER_PAGE);
 
   return (
-    <MainLayout title="Feed">
+    <MainLayout>
       <br />
       <Container>
-        {/* <SEO
-          theme={theme}
-          image={frontmatter.image.childImageSharp.fixed.src}
-          title={frontmatter.title}
-          description={excerpt}
-        /> */}
         <PostsListHeader title="Feed" theme={theme} />
         <PageGrid>
           <PostsSection>
             <PostsList posts={allMdx.edges} gridView="row" />
-            <Pagination
-              pageRoutePath={PAGES_ROUTES.feed.pagination}
-              routePath={PAGES_ROUTES.feed.index}
-              theme={theme}
-              currentPage={currentPage}
-              pagesCount={pagesCount}
-            />
+            {pagesCount > 1 && (
+              <Pagination
+                routePath={PAGES_ROUTES.feed.paginationIndex}
+                theme={theme}
+                currentPage={1}
+                pagesCount={pagesCount}
+              />
+            )}
           </PostsSection>
           <SidePanel convertkitEndpoint={convertkitEndpoint}>
             <TagsBlock theme={theme} />
@@ -69,12 +66,11 @@ export const FeedPostsPage = ({
 };
 
 export const query = graphql`
-  query FeedPostsPage($skip: Int!, $limit: Int!) {
+  query HomePage {
     allMdx(
-      limit: $limit
-      skip: $skip
+      limit: 6
       filter: {
-        fileAbsolutePath: { regex: "/content/" }
+        fileAbsolutePath: { regex: "/content/(blog|posts)/" }
         frontmatter: { hidden: { ne: true } }
       }
       sort: { fields: frontmatter___date, order: DESC }
@@ -83,11 +79,11 @@ export const query = graphql`
         node {
           excerpt
           frontmatter {
-            type
             title
             slug
             date
             tags
+            type
             image {
               childImageSharp {
                 fluid(maxWidth: 1000) {
@@ -103,4 +99,4 @@ export const query = graphql`
   }
 `;
 
-export default FeedPostsPage;
+export default IndexPage;

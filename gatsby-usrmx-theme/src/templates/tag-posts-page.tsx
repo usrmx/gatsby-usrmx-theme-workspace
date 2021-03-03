@@ -1,64 +1,68 @@
+import { graphql, PageProps } from "gatsby";
 import React from "react";
-import { PageProps, graphql } from "gatsby";
 
 import {
-  PageGrid,
-  MainLayout,
-  PostsList,
-  TagsBlock,
-  SidePanel,
-  PostsSection,
-  PostsListHeader,
-  Pagination,
+  Breadcrumbs,
   Container,
+  MainLayout,
+  PageGrid,
+  Pagination,
+  PostsList,
+  PostsListHeader,
+  PostsSection,
+  SidePanel,
 } from "../components";
-import { PostEdge } from "../types";
+import { PAGES_ROUTES } from "../constants";
 import { useTheme } from "../core";
-import { PAGES_ROUTES, POSTS_PER_PAGE } from "../constants";
+import { PostEdge } from "../types";
 
 interface DataType {
   allMdx: {
     edges: PostEdge[];
     totalCount: number;
   };
-  site: {
-    siteMetadata: {
-      avatarSrc: any;
-    };
-  };
 }
 
-interface PageContextType {
+interface PageContextValue {
+  tag: string;
+  limit: number;
+  skip: number;
+  currentPage: number;
+  pagesCount: number;
   convertkitEndpoint: string;
 }
 
-const IndexPage = ({
+const TagPostsPage = ({
   data: { allMdx },
-  pageContext: { convertkitEndpoint },
-}: PageProps<DataType, PageContextType>) => {
+  pageContext: { tag, currentPage, pagesCount, convertkitEndpoint },
+}: PageProps<DataType, PageContextValue>) => {
   const { theme } = useTheme();
-  const pagesCount = Math.ceil(allMdx.totalCount / POSTS_PER_PAGE);
 
   return (
-    <MainLayout>
+    <MainLayout title="Tags">
       <br />
       <Container>
-        <PostsListHeader title="Feed" theme={theme} />
+        <Breadcrumbs
+          items={[
+            { to: "/", label: "Home" },
+            { to: PAGES_ROUTES.tags.index, label: "Tags" },
+            { label: tag },
+          ]}
+        />
+        <PostsListHeader title={`#${tag}`} theme={theme} />
         <PageGrid>
           <PostsSection>
             <PostsList posts={allMdx.edges} gridView="row" />
             {pagesCount > 1 && (
               <Pagination
-                routePath={PAGES_ROUTES.feed.paginationIndex}
+                routePath={`${PAGES_ROUTES.tags.index}/${tag}`}
                 theme={theme}
-                currentPage={1}
+                currentPage={currentPage}
                 pagesCount={pagesCount}
               />
             )}
           </PostsSection>
-          <SidePanel convertkitEndpoint={convertkitEndpoint}>
-            <TagsBlock theme={theme} />
-          </SidePanel>
+          <SidePanel convertkitEndpoint={convertkitEndpoint} />
         </PageGrid>
       </Container>
     </MainLayout>
@@ -66,12 +70,13 @@ const IndexPage = ({
 };
 
 export const query = graphql`
-  query HomePage {
+  query TagPostsPage($tag: String!, $skip: Int!, $limit: Int!) {
     allMdx(
-      limit: 6
+      limit: $limit
+      skip: $skip
       filter: {
-        fileAbsolutePath: { regex: "/content/" }
-        frontmatter: { hidden: { ne: true } }
+        fileAbsolutePath: { regex: "/content/(blog|posts)/" }
+        frontmatter: { hidden: { ne: true }, tags: { in: [$tag] } }
       }
       sort: { fields: frontmatter___date, order: DESC }
     ) {
@@ -79,11 +84,11 @@ export const query = graphql`
         node {
           excerpt
           frontmatter {
+            type
             title
             slug
             date
             tags
-            type
             image {
               childImageSharp {
                 fluid(maxWidth: 1000) {
@@ -99,4 +104,4 @@ export const query = graphql`
   }
 `;
 
-export default IndexPage;
+export default TagPostsPage;

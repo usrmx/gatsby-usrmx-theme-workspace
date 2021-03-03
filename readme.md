@@ -1,4 +1,4 @@
-# gatsby-l0g-theme-workspace
+# gatsby-usrmx-theme-workspace
 
 ### Configuration
 

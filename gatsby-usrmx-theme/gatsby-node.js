@@ -190,7 +190,7 @@ const createPages = async ({ graphql, actions, reporter }) => {
     query {
       allMdx(
         filter: {
-          fileAbsolutePath: { regex: "/src/content/" }
+          fileAbsolutePath: { regex: "/src/content/(blog|posts)/" }
           frontmatter: { hidden: { ne: true } }
         }
         sort: { fields: frontmatter___date, order: ASC }
@@ -330,6 +330,35 @@ const createPages = async ({ graphql, actions, reporter }) => {
       index,
       TEMPLATES.feedPostsPage
     );
+  });
+
+  // ------------ CREATING NOTES ------------
+  const notesResult = await graphql(`
+    {
+      allFile(filter: { absolutePath: { regex: "/content/notes/" } }) {
+        edges {
+          node {
+            childMdx {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  notesResult.data.allFile.edges.forEach(({ node }) => {
+    if (!node.childMdx) {
+      return;
+    }
+
+    createPage({
+      path: `${PAGES_ROUTES.notes.index}/${node.childMdx.slug}`,
+      component: TEMPLATES.notePage,
+      context: {
+        slug: node.childMdx.slug,
+      },
+    });
   });
 };
 
