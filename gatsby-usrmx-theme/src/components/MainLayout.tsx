@@ -55,8 +55,13 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
   return (
     <>
       <SEO theme={theme} title={title} />
-      <Header logoTitle={siteMetadata.logoTitle} navItems={siteMetadata.nav} />
-      <MDXProvider components={{}}>{children}</MDXProvider>
+      <div>
+        <Header
+          logoTitle={siteMetadata.logoTitle}
+          navItems={siteMetadata.nav}
+        />
+        <MDXProvider components={{}}>{children}</MDXProvider>
+      </div>
       <Footer
         copyright={siteMetadata.copyright}
         navItems={siteMetadata.footerNav}
