@@ -46,16 +46,15 @@ const NotePage: FC<PageProps<DataType, PageContextType>> = ({
             <GoBackTo type="link" theme={theme} to={PAGES_ROUTES.home.index}>
               Go Back To Home Page
             </GoBackTo>
-          ) : // <GoBackTo
-          //   type="button"
-          //   theme={theme}
-          //   onClick={() => {
-          //     navigate(-1);
-          //   }}
-          // >
-          //   Back
-          // </GoBackTo>
-          null}
+          ) : (
+            <GoBackTo
+              type="link"
+              theme={theme}
+              to={`${PAGES_ROUTES.notes.index}/home`}
+            >
+              Go Back To Home Note
+            </GoBackTo>
+          )}
           <TextContent theme={theme}>
             <MDXRenderer>{mdx.body}</MDXRenderer>
           </TextContent>
