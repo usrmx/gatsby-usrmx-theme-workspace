@@ -11,7 +11,7 @@ import { StyleModules } from "../style-modules";
 const styles = StyleModules.footer;
 
 const themeRepositoryUrl =
-  "https://github.com/novemist/gatsby-novemist-theme-workspace";
+  "https://github.com/mxkvl/gatsby-novemist-theme-workspace";
 
 interface FooterProps {
   theme?: ThemeValue;
