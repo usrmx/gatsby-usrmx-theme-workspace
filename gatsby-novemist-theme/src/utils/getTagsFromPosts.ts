@@ -1,6 +1,6 @@
 import { PostEdge } from "../types";
 
-export const getTagsFromPosts = (posts: any[]): string[] =>
+export const getTagsFromPosts = (posts: PostEdge[]): string[] =>
   Array.from(
     new Set<string>(
       posts
@@ -9,7 +9,13 @@ export const getTagsFromPosts = (posts: any[]): string[] =>
             node: {
               frontmatter: { tags },
             },
-          }) => tags
+          }) => {
+            if (!tags) {
+              return [];
+            }
+
+            return tags.map((tag) => tag.toLowerCase());
+          }
         )
         .filter(Boolean)
         .flat()

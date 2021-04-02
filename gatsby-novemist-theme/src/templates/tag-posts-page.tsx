@@ -72,13 +72,13 @@ const TagPostsPage = ({
 };
 
 export const query = graphql`
-  query TagPostsPage($tag: String!, $skip: Int!, $limit: Int!) {
+  query TagPostsPage($tagRegex: String!, $skip: Int!, $limit: Int!) {
     allMdx(
       limit: $limit
       skip: $skip
       filter: {
         fileAbsolutePath: { regex: "/content/" }
-        frontmatter: { public: { in: true }, tags: { in: [$tag] } }
+        frontmatter: { public: { in: true }, tags: { regex: $tagRegex } }
       }
       sort: { fields: frontmatter___date, order: DESC }
     ) {

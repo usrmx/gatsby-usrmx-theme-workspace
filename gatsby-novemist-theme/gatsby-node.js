@@ -291,6 +291,7 @@ const createPages = async ({ graphql, actions, reporter }) => {
       const component = TEMPLATES.tagPostsPage;
       const context = {
         tag,
+        tagRegex: `/${tag}/i`,
         limit: POSTS_PER_PAGE,
         skip: index * POSTS_PER_PAGE,
         currentPage,
