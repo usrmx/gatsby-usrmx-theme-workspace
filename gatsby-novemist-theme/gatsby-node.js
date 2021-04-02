@@ -53,12 +53,8 @@ const getRelatedPostsIds = (currentPost, posts) => {
 // replace with "src/utils/getTagsFromPosts.ts"
 const getTagsFromPosts = (posts) =>
   posts
-    .map(
-      ({
-        node: {
-          frontmatter: { tags },
-        },
-      }) => tags
+    .map(({ node: { frontmatter: { tags } } }) =>
+      tags.map((tag) => tag.toLowerCase())
     )
     .filter(Boolean)
     .flat();
