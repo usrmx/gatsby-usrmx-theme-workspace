@@ -5,6 +5,8 @@ import { NavItem, ThemeValue } from "../types";
 import { NavLink } from "./NavLink";
 
 import { StyleModules } from "../style-modules";
+import { Icon } from "./Icon";
+import { icons } from "../icons";
 
 const styles = StyleModules.navbar;
 
@@ -36,6 +38,12 @@ export const Navbar = ({
         </NavLink>
       ))}
       {withLine && <span className={styles.line}></span>}
+      <div className={styles.subscribe}>
+        <a href="/subscribe">
+          Subscribe
+          <Icon src={icons.emojiSparkles} widthSize="20px" indentLeft="10px" />
+        </a>
+      </div>
     </nav>
   );
 };

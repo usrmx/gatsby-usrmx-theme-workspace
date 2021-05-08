@@ -28,3 +28,18 @@
 .dark .line {
   border-color: var(--theme-dark-second-text-color);
 }
+
+.subscribe {
+  display: inline-block;
+}
+
+.subscribe a {
+  padding: 7px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  background: #37383a;
+  border: 2px dashed #387cc8;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}

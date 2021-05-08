@@ -17,6 +17,7 @@ import emojiPoliceCarLight from "../static/icons/emoji-police-car-light.png";
 import emojiSparkles from "../static/icons/emoji-sparkles.png";
 import emojiLoveLetter from "../static/icons/emoji-love-letter.png";
 import emojiHouseWithGarden from "../static/icons/emoji-house-with-garden.png";
+import emojiEmail from "../static/icons/emoji-e-mail.png";
 
 export const icons = {
   twitter,
@@ -38,4 +39,5 @@ export const icons = {
   emojiSparkles,
   emojiLoveLetter,
   emojiHouseWithGarden,
+  emojiEmail,
 };
