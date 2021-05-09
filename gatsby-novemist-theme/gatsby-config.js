@@ -52,7 +52,7 @@ module.exports = {
             resolve: "gatsby-remark-double-brackets-link",
             options: {
               titleToURLPath: `${__dirname}/utils/resolve-url.js`,
-              stripBrackets: false,
+              stripBrackets: true,
             },
           },
           "gatsby-remark-double-parenthesis-link",
