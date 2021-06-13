@@ -21,6 +21,7 @@ import * as postCard from "../styles/post-card.module.css";
 import * as postInfo from "../styles/post-info.module.css";
 import * as postTag from "../styles/post-tag.module.css";
 import * as postTags from "../styles/post-tags.module.css";
+import * as postBanner from "../styles/post-banner.module.css";
 import * as postsListHeader from "../styles/posts-list-header.module.css";
 import * as postsList from "../styles/posts-list.module.css";
 import * as postsSection from "../styles/posts-section.module.css";
@@ -59,6 +60,7 @@ export const StyleModules = {
   postInfo,
   postTag,
   postTags,
+  postBanner,
   postsList,
   postsListHeader,
   postsSection,

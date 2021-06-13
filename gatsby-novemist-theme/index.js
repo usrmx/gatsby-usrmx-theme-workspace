@@ -1,2 +1,4 @@
 // no-op
-export { SubscribingBlock } from "./src/components";
+export * from "./src/components";
+export { icons } from './src/icons';
+export * from './src/hooks';
