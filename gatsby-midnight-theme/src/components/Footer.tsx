@@ -36,7 +36,7 @@ export const Footer = ({
               href={themeRepositoryUrl}
               target="_blank"
             >
-              novemist theme
+              midnight theme
             </a>{" "}
             for{" "}
             <a
