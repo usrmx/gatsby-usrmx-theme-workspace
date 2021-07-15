@@ -72,7 +72,7 @@ const PAGES_ROUTES = {
     index: "/notes",
   },
   subscribe: {
-    index: "/subscribe",
+    index: "/newsletter",
   },
 };
 

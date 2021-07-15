@@ -16,7 +16,7 @@ interface PageContextValue {
   convertkitEndpoint: string;
 }
 
-const Subscribe: FC<PageProps<{}, PageContextValue>> = ({
+const NewsletterPage: FC<PageProps<{}, PageContextValue>> = ({
   pageContext: { convertkitEndpoint },
 }) => {
   const { theme } = useTheme();
@@ -116,4 +116,4 @@ const Subscribe: FC<PageProps<{}, PageContextValue>> = ({
   );
 };
 
-export default Subscribe;
+export default NewsletterPage;

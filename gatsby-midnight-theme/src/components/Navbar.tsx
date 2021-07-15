@@ -42,8 +42,8 @@ export const Navbar = ({
       {withLine && <span className={styles.line}></span>}
       {isSubscribeBtnShown && (
         <div className={styles.subscribe}>
-          <a href="/subscribe">
-            Subscribe
+          <a href="/newsletter">
+            Newsletter
             <Icon
               src={icons.emojiSparkles}
               widthSize="20px"
